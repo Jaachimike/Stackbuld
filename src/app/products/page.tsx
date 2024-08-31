@@ -26,14 +26,12 @@ const ProductsPage = () => {
   useEffect(() => {
     let filteredProducts = [...products];
 
-    // filter by category
     if (categoryFilter !== "All") {
       filteredProducts = filteredProducts.filter(
         p => capitalizeFirstLetter(p.category) === categoryFilter
       );
     }
 
-    // filter by price
     if (priceSort !== "none") {
       filteredProducts.sort((a, b) => {
         if (priceSort === "ascending") {
@@ -61,39 +59,29 @@ const ProductsPage = () => {
     setProducts(updatedProducts);
   };
 
-  // const capitalizeFirstLetter = (a: string) => {
-  //   let camelCaseText = a
-  //     .split(" ")
-  //     .map(function (word, index) {
-  //       // First character upper case else lower case
-  //       return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-  //     })
-  //     .join(" ");
-
-  //   return camelCaseText;
-  // };
-
   const categories = [
     "All",
     ...new Set(products.map(p => capitalizeFirstLetter(p.category))),
   ];
 
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Product Listing</h1>
+    <div className="p-4 sm:p-6 md:p-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-0">
+          Product Listing
+        </h1>
         <Link
           href="/products/new"
-          className="bg-black text-white hover:bg-white hover:text-black p-3 rounded-xl"
+          className="bg-black text-white hover:bg-white hover:text-black p-2 sm:p-3 rounded-xl text-sm sm:text-base"
         >
           Add New Product
         </Link>
       </div>
-      <div className="mb-4 flex space-x-4">
+      <div className="mb-4 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
         <select
           value={priceSort}
           onChange={e => setPriceSort(e.target.value as SortOption)}
-          className="p-2 border rounded"
+          className="p-2 border rounded w-full sm:w-auto"
         >
           <option value="none">Sort by Price</option>
           <option value="ascending">Price: Low to High</option>
@@ -102,7 +90,7 @@ const ProductsPage = () => {
         <select
           value={categoryFilter}
           onChange={e => setCategoryFilter(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded w-full sm:w-auto"
         >
           {categories.map(category => (
             <option key={category} value={category}>
@@ -111,44 +99,46 @@ const ProductsPage = () => {
           ))}
         </select>
       </div>
-      <div>
+      <div className="overflow-x-auto">
         <table className="table-auto w-full text-left">
           <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Category</th>
-              <th>Description</th>
-              <th>Actions</th>
+            <tr className="bg-gray-100">
+              <th className="p-2">ID</th>
+              <th className="p-2">Name</th>
+              <th className="p-2">Price</th>
+              <th className="p-2">Category</th>
+              <th className="p-2">Description</th>
+              <th className="p-2">Actions</th>
             </tr>
           </thead>
           <tbody>
             {displayedProducts.map(product => {
               const shortProductId = product.id.split("-", 2).join("-");
               return (
-                <tr key={product.id}>
-                  <td>{shortProductId}</td>
-                  <td>{product.name}</td>
-                  <td>{product.price}</td>
-                  <td>{capitalizeFirstLetter(product.category)}</td>
-                  <td>{product.description}</td>
-                  <td>
-                    <div className="flex space-x-4">
+                <tr key={product.id} className="border-b">
+                  <td className="p-2">{shortProductId}</td>
+                  <td className="p-2">{product.name}</td>
+                  <td className="p-2">{product.price}</td>
+                  <td className="p-2">
+                    {capitalizeFirstLetter(product.category)}
+                  </td>
+                  <td className="p-2">{product.description}</td>
+                  <td className="p-2">
+                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                       <button
-                        className="bg-blue-500 text-white p-2 rounded"
+                        className="bg-blue-500 text-white  font-semibold p-1 sm:p-2 rounded text-sm"
                         onClick={() => handleEdit(product.id)}
                       >
                         Edit
                       </button>
                       <button
-                        className="bg-blue-500 text-white p-2 rounded"
+                        className="bg-white text-black font-semibold p-1 sm:p-2 rounded text-sm"
                         onClick={() => handleView(product.id)}
                       >
                         View
                       </button>
                       <button
-                        className="bg-red-500 text-white p-2 rounded"
+                        className="bg-red-500 text-white font-semibold p-1 sm:p-2 rounded text-sm"
                         onClick={() => handleDelete(product.id)}
                       >
                         Delete

@@ -1,4 +1,3 @@
-// app/components/ProductCard.tsx
 import React from "react";
 import {useRouter} from "next/navigation";
 import {Product} from "@/types/Product";
