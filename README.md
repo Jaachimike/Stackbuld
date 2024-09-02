@@ -6,7 +6,7 @@ This is a Next.js e-commerce product listing platform built using TypeScript and
 
 - Product Management - Add, edit, delete, and view products with details like name, category (clothes, shoes, or accessories), price, and description.
 - Dynamic Routing - Navigate between different product pages and manage products using dynamic routes.
-- SEO Optimization - Implement SEO best practices including meta tags, Open Graph tags, dynamic generation of SEO content, a sitemap, and robots.txt.
+- SEO Optimization - Implement SEO best practices including a sitemap and robots.txt.
 - Responsive Design - Uses Tailwind CSS to ensure a responsive design that works on all devices.
 - Local Storage - Products are stored locally using the browser's localStorage, ensuring the application runs without needing a backend or external database.
 
